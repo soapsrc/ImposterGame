@@ -140,32 +140,16 @@ document.getElementById('continue-to-reveal-btn').addEventListener('click', asyn
     showScreen('word-reveal-screen');
 });
 
-// Generate AI hint using Cohere
+// Generate AI hint using backend proxy
 async function generateAIHint(secretWord) {
     try {
-        const response = await fetch('https://api.cohere.ai/v1/chat', {
+        const response = await fetch('/api/generate-hint', {
             method: 'POST',
             headers: {
-                'Authorization': 'Bearer 4tojqOj8JlW5bKgPjr1Ju1jQDfLGszKQT3gnCz3Y',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                message: `Give me ONE word that is loosely related to "${secretWord}" and in the SAME CATEGORY. The word should help someone guess what general category or type of thing it is without revealing the exact word.
-
-Examples:
-- "Pizza" → "Italian", "Restaurant", "Cheese"
-- "Cashier" → "Retail", "Store", "Customer"
-- "Scissors" → "Cutting", "Sharp", "Paper"
-- "Dog" → "Animal", "Companion", "Furry"
-- "Seal" → "Ocean", "Marine", "Swim"
-- "Teacher" → "Guide", "Course", "Learning"
-- "Apple" → "Fruit", "Sweet", "Orchard"
-
-IMPORTANT: The hint MUST be loosely related to the same type/category. Do NOT give unrelated words, but also do not give overly specific words that reveal the secret word.
-
-Now give me ONLY ONE word for "${secretWord}":`,
-                model: 'command',
-                temperature: 0.3
+                secretWord: secretWord
             })
         });
         
