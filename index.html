@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imposter Game 🎮</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Home Screen -->
+    <div id="home-screen" class="screen active">
+        <div class="container">
+            <h1 class="game-title">🎮 Imposter Game 🎮</h1>
+            
+            <div class="instructions-box">
+                <p>Everyone knows the secret word, except the imposter(s). Play a few rounds of each person giving a 1-word clue, sus out the imposter, and share a laugh! 😄</p>
+                <a href="howtoplay.html" target="_blank" class="how-to-play-link">📖 How to Play</a>
+            </div>
+
+            <div class="settings-section">
+                <h2>🎯 Select Categories</h2>
+                <div id="category-filters" class="category-grid"></div>
+            </div>
+
+            <div class="settings-section">
+                <h2>⚙️ Game Settings</h2>
+                
+                <div class="toggle-container">
+                    <label class="toggle-label">
+                        <input type="checkbox" id="hint-toggle" checked>
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-text">💡 Imposter Hint</span>
+                    </label>
+                </div>
+
+                <div class="toggle-container">
+                    <label class="toggle-label">
+                        <input type="checkbox" id="chaos-toggle">
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-text">🎲 Chaos Mode</span>
+                    </label>
+                    <p class="chaos-description">Random imposters & flexible voting!</p>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" id="start-btn">🎮 Play Game!</button>
+        </div>
+    </div>
+
+    <!-- Player Setup Screen -->
+    <div id="player-setup-screen" class="screen">
+        <div class="container">
+            <h1 class="game-title">👥 Enter Players</h1>
+            
+            <div class="player-input-section">
+                <input type="text" id="player-name-input" class="input-field" placeholder="Enter player name">
+                <button class="btn btn-secondary" id="add-player-btn">➕ Add Player</button>
+            </div>
+            
+            <div id="players-list" class="players-list"></div>
+            
+            <p class="player-count">Players: <span id="player-count">0</span></p>
+            
+            <button class="btn btn-primary" id="continue-to-reveal-btn" disabled>Continue ➡️</button>
+        </div>
+    </div>
+
+    <!-- Word Reveal Screen -->
+    <div id="word-reveal-screen" class="screen">
+        <div class="container">
+            <h1 class="game-title">🎴 Reveal Your Role</h1>
+            
+            <p class="instruction">Each player: tap your name to see your word, then pass the device!</p>
+            
+            <div id="reveal-players-list" class="reveal-players-list"></div>
+            
+            <button class="btn btn-primary" id="start-game-btn" style="display: none;">🎮 Start!</button>
+        </div>
+    </div>
+
+    <!-- Game Rules Screen -->
+    <div id="game-rules-screen" class="screen">
+        <div class="container">
+            <h1 class="game-title">📋 Game Rules</h1>
+            
+            <div class="rules-box">
+                <h2>🎯 How to Play:</h2>
+                <ul>
+                    <li><strong id="starting-player-name"></strong> starts the round!</li>
+                    <li>Go <strong>clockwise</strong> from there</li>
+                    <li>Each player gives a <strong>1-word clue</strong> about their word</li>
+                    <li>Go around <strong>2-3 times</strong></li>
+                    <li>Discuss and vote for who you think is the imposter!</li>
+                    <li id="chaos-voting-rule" style="display: none;"><strong>🎲 Chaos Mode:</strong> Vote for multiple suspects!</li>
+                </ul>
+            </div>
+
+            <button class="btn btn-primary" id="reveal-results-btn">🎊 Reveal Results!</button>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen" class="screen">
+        <div class="container">
+            <h1 class="game-title">🎊 Results!</h1>
+            
+            <div class="results-box">
+                <h2>🕵️ The Imposter(s):</h2>
+                <div id="imposter-reveal" class="imposter-reveal"></div>
+                
+                <h2>🔤 Secret Word:</h2>
+                <div id="secret-word-reveal" class="secret-word"></div>
+            </div>
+
+            <div class="winner-selection">
+                <h2>👑 Who Won?</h2>
+                <div id="winner-selection-list" class="winner-buttons"></div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="play-again-btn">🔄 Play Again</button>
+                <button class="btn btn-secondary" id="view-leaderboard-btn">🏆 Leaderboard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaderboard Screen -->
+    <div id="leaderboard-screen" class="screen">
+        <div class="container">
+            <h1 class="game-title">🏆 Leaderboard</h1>
+            
+            <div id="leaderboard-table" class="leaderboard"></div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-secondary" id="back-to-results-btn">⬅️ Back</button>
+                <button class="btn btn-danger" id="reset-leaderboard-btn">🗑️ Reset Scores</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Word Reveal Modal -->
+    <div id="word-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-player-name"></h2>
+            </div>
+            <div class="modal-body">
+                <div id="modal-word" class="revealed-word"></div>
+                <div id="modal-hint" class="hint-text"></div>
+            </div>
+            <button class="btn btn-primary" id="modal-close-btn">✅ Got It!</button>
+        </div>
+    </div>
+
+    <script src="script.js?v=4"></script>
+</body>
+</html>

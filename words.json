@@ -1,0 +1,57 @@
+{
+  "categories": {
+    "Food": [
+      "Pizza", "Sushi", "Burger", "Pasta", "Taco", "Salad", "Sandwich", "Ramen", "Curry", "Steak",
+      "Ice Cream", "Cake", "Cookie", "Donut", "Cupcake", "Brownie", "Pie", "Pancake", "Waffle", "Muffin",
+      "Apple", "Banana", "Orange", "Grape", "Strawberry", "Watermelon", "Mango", "Pineapple", "Peach", "Cherry",
+      "Coffee", "Tea", "Juice", "Smoothie", "Milkshake", "Soda", "Lemonade", "Hot Chocolate", "Boba", "Water"
+    ],
+    "Animals": [
+      "Dog", "Cat", "Lion", "Tiger", "Bear", "Elephant", "Giraffe", "Zebra", "Monkey", "Panda",
+      "Rabbit", "Hamster", "Mouse", "Squirrel", "Fox", "Wolf", "Deer", "Raccoon", "Hedgehog", "Otter",
+      "Eagle", "Owl", "Parrot", "Penguin", "Flamingo", "Duck", "Swan", "Chicken", "Peacock", "Crow",
+      "Dolphin", "Whale", "Shark", "Octopus", "Jellyfish", "Turtle", "Seal", "Starfish", "Crab", "Fish"
+    ],
+    "School & Learning": [
+      "Pencil", "Pen", "Eraser", "Ruler", "Notebook", "Backpack", "Calculator", "Highlighter", "Stapler", "Scissors",
+      "Teacher", "Student", "Classroom", "Desk", "Whiteboard", "Blackboard", "Homework", "Test", "Quiz", "Grade",
+      "Math", "Science", "History", "English", "Art", "Music", "Gym", "Geography", "Biology", "Chemistry",
+      "Book", "Library", "Computer", "Laptop", "Tablet", "Projector", "Paper", "Folder", "Binder", "Locker"
+    ],
+    "Objects & Things": [
+      "Chair", "Table", "Lamp", "Clock", "Mirror", "Pillow", "Blanket", "Curtain", "Carpet", "Vase",
+      "Phone", "Laptop", "Keyboard", "Mouse", "Headphones", "Speaker", "Camera", "Television", "Remote", "Charger",
+      "Key", "Wallet", "Bag", "Umbrella", "Sunglasses", "Hat", "Scarf", "Gloves", "Watch", "Ring",
+      "Brush", "Comb", "Toothbrush", "Soap", "Towel", "Shampoo", "Perfume", "Lipstick", "Mirror", "Nail Polish"
+    ],
+    "Places": [
+      "Beach", "Mountain", "Forest", "Desert", "Island", "Lake", "River", "Ocean", "Cave", "Waterfall",
+      "Park", "Zoo", "Museum", "Library", "Hospital", "School", "Restaurant", "Cafe", "Mall", "Store",
+      "Airport", "Station", "Hotel", "Cinema", "Theater", "Stadium", "Gym", "Pool", "Playground", "Garden",
+      "City", "Village", "Farm", "Castle", "Temple", "Church", "Bridge", "Tower", "Palace", "Market"
+    ],
+    "Activities & Sports": [
+      "Soccer", "Basketball", "Baseball", "Tennis", "Golf", "Swimming", "Running", "Cycling", "Skiing", "Surfing",
+      "Dancing", "Singing", "Drawing", "Painting", "Reading", "Writing", "Cooking", "Baking", "Gardening", "Knitting",
+      "Hiking", "Camping", "Fishing", "Hunting", "Climbing", "Skating", "Bowling", "Boxing", "Yoga", "Meditation",
+      "Shopping", "Gaming", "Watching", "Listening", "Traveling", "Photography", "Driving", "Sleeping", "Eating", "Chatting"
+    ],
+    "Weather & Nature": [
+      "Sun", "Moon", "Star", "Cloud", "Rain", "Snow", "Wind", "Storm", "Lightning", "Thunder",
+      "Rainbow", "Fog", "Mist", "Dew", "Frost", "Ice", "Hail", "Tornado", "Hurricane", "Breeze",
+      "Flower", "Tree", "Grass", "Leaf", "Branch", "Root", "Seed", "Bush", "Vine", "Moss",
+      "Rock", "Stone", "Sand", "Dirt", "Mud", "Clay", "Mountain", "Hill", "Valley", "Canyon"
+    ],
+    "Colors": [
+      "Red", "Blue", "Green", "Yellow", "Orange", "Purple", "Pink", "Brown", "Black", "White",
+      "Gray", "Gold", "Silver", "Bronze", "Beige", "Turquoise", "Magenta", "Cyan", "Maroon", "Navy",
+      "Lime", "Olive", "Teal", "Aqua", "Coral", "Salmon", "Peach", "Lavender", "Violet", "Indigo"
+    ],
+    "Professions": [
+      "Doctor", "Nurse", "Teacher", "Lawyer", "Engineer", "Artist", "Chef", "Waiter", "Driver", "Pilot",
+      "Scientist", "Programmer", "Designer", "Writer", "Journalist", "Photographer", "Musician", "Singer", "Actor", "Dancer",
+      "Firefighter", "Police", "Soldier", "Farmer", "Fisherman", "Carpenter", "Plumber", "Electrician", "Mechanic", "Barber",
+      "Accountant", "Banker", "Manager", "Secretary", "Cashier", "Cleaner", "Guard", "Librarian", "Dentist", "Veterinarian"
+    ]
+  }
+}

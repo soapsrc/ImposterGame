@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Play - Imposter Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .how-to-play-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            border: 4px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 8px 8px 0px var(--shadow);
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            font-size: 16px;
+            color: var(--primary-pink);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px var(--secondary-purple);
+        }
+
+        .section h3 {
+            font-size: 12px;
+            color: var(--dark);
+            margin: 20px 0 10px 0;
+        }
+
+        .section p, .section li {
+            font-size: 11px;
+            line-height: 2;
+            margin-bottom: 15px;
+        }
+
+        .section ul {
+            list-style: none;
+            padding-left: 30px;
+        }
+
+        .section li::before {
+            content: '▸';
+            position: absolute;
+            margin-left: -25px;
+            color: var(--primary-pink);
+        }
+
+        .highlight-box {
+            background: var(--accent-yellow);
+            border: 3px solid var(--border);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .example-box {
+            background: var(--accent-blue);
+            border: 3px solid var(--border);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 30px;
+            background: var(--primary-pink);
+            color: var(--white);
+            text-decoration: none;
+            border: 3px solid var(--border);
+            border-radius: 8px;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 4px 4px 0px var(--shadow);
+        }
+
+        @media (max-width: 768px) {
+            .how-to-play-container {
+                padding: 25px;
+            }
+
+            .section h2 {
+                font-size: 14px;
+            }
+
+            .section h3 {
+                font-size: 11px;
+            }
+
+            .section p, .section li {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="how-to-play-container">
+        <h1 class="game-title">📖 How to Play 📖</h1>
+
+        <div class="section">
+            <h2>🎯 Game Overview</h2>
+            <p>
+                The Imposter Game (also known as Undercover or The Chameleon) is a social deduction word game where most players receive the same secret word, but one or more imposters receive a different role. The goal is for the crew to identify the imposter(s) while the imposter(s) try to blend in without knowing the secret word!
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>🎮 Setup</h2>
+            <ul>
+                <li><strong>Select Categories:</strong> Choose one or more word categories (Food, Animals, School & Learning, etc.)</li>
+                <li><strong>Imposter Hint:</strong> Toggle ON to give imposters a helpful hint about the secret word</li>
+                <li><strong>Chaos Mode:</strong> Enable for random imposters (0 to all players) and flexible voting</li>
+                <li><strong>Add Players:</strong> Enter names for all players (minimum 3 players required)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🎴 Role Assignment</h2>
+            <p>
+                After entering all player names, each player will tap their name on the device to privately reveal their role:
+            </p>
+            <ul>
+                <li><strong>Crew Members:</strong> See the secret word (e.g., "Pizza")</li>
+                <li><strong>Imposter(s):</strong> See "IMPOSTER!" message</li>
+                <li>If hints are enabled, imposters get a clue (e.g., "It starts with P" or "It has 5 letters")</li>
+                <li>One random player is marked as the starting player ⭐</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>⚠️ Important:</strong> Pass the device between players and don't look at other people's screens! The element of secrecy is crucial to the game.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💬 Giving Clues (2-3 Rounds)</h2>
+            <p>
+                Starting with the designated player and going clockwise, each player gives a <strong>ONE-WORD clue</strong> about their secret word:
+            </p>
+
+            <div class="example-box">
+                <strong>Example: Secret word is "Pizza"</strong><br><br>
+                • Player 1: "Italian" 🍕<br>
+                • Player 2: "Delicious" 😋<br>
+                • Player 3: "Cheese" 🧀<br>
+                • Player 4 (Imposter): "Food" 🤔 (trying to blend in!)
+            </div>
+
+            <ul>
+                <li><strong>Crew Members:</strong> Give specific clues about your word, but don't be too obvious!</li>
+                <li><strong>Imposter(s):</strong> Listen carefully and give vague clues that could apply to many words</li>
+                <li>Go around the circle 2-3 times to gather enough information</li>
+                <li>Pay attention to clues that seem suspicious or too generic</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🗳️ Voting Phase</h2>
+            <p>
+                After discussion rounds, players vote for who they think is the imposter:
+            </p>
+
+            <h3>Normal Mode:</h3>
+            <ul>
+                <li>Each player votes for ONE suspect</li>
+                <li>Player(s) with the most votes are suspected imposters</li>
+            </ul>
+
+            <h3>🎲 Chaos Mode:</h3>
+            <ul>
+                <li>Each player can vote for multiple suspects (up to 3)</li>
+                <li>Number of imposters (0 to all players) is randomly selected and unknown!</li>
+                <li>Adds extra unpredictability and challenge</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🎊 Results & Scoring</h2>
+            <p>
+                After voting, reveal the results to see:
+            </p>
+            <ul>
+                <li>Who the actual imposter(s) were 🕵️</li>
+                <li>Vote tallies for each player 📊</li>
+                <li>The secret word 🔤</li>
+            </ul>
+
+            <h3>Winning:</h3>
+            <div class="highlight-box">
+                <strong>👥 Crew Wins:</strong> If the crew correctly identified the imposter(s), all crew members get 1 point<br><br>
+                <strong>🕵️ Imposter Wins:</strong> If the imposter(s) avoided detection, they get 1 point each
+            </div>
+
+            <p>
+                Points are tracked in the leaderboard so you can see who's the ultimate detective or master deceiver over multiple rounds!
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>💡 Strategy Tips</h2>
+            
+            <h3>For Crew Members:</h3>
+            <ul>
+                <li>Give specific but not too obvious clues</li>
+                <li>Listen for vague or mismatched clues from others</li>
+                <li>Don't reveal the exact word!</li>
+                <li>Work together to spot suspicious behavior</li>
+            </ul>
+
+            <h3>For Imposters:</h3>
+            <ul>
+                <li>Listen to other clues before giving yours if possible</li>
+                <li>Give generic clues that could apply to many words</li>
+                <li>Use your hint wisely to make educated guesses</li>
+                <li>Act confident even when you're unsure!</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🎲 About Chaos Mode</h2>
+            <p>
+                Chaos Mode adds an exciting twist to the game:
+            </p>
+            <ul>
+                <li><strong>Random Imposters:</strong> The game randomly selects 0 to all players as imposters (no one knows how many!)</li>
+                <li><strong>Flexible Voting:</strong> Players can vote for multiple suspects (up to 3)</li>
+                <li><strong>More Deception:</strong> Imposters might not even know if they have allies</li>
+                <li><strong>Greater Challenge:</strong> Makes the game more unpredictable and fun!</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🏆 Leaderboard</h2>
+            <p>
+                The leaderboard tracks cumulative points across all games:
+            </p>
+            <ul>
+                <li>Points are saved automatically in your browser</li>
+                <li>See who's the best detective or imposter over time</li>
+                <li>Reset the leaderboard anytime to start fresh</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🎉 Have Fun!</h2>
+            <div class="highlight-box">
+                Remember, the goal is to have fun, laugh, and enjoy the social deduction experience! Whether you're deceiving your friends or catching the imposter, every round is an opportunity for memorable moments! 😄
+            </div>
+        </div>
+
+        <a href="index.html" class="back-link">⬅️ Back to Game</a>
+    </div>
+</body>
+</html>
