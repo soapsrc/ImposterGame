@@ -51,6 +51,15 @@
                     </label>
                     <p class="chaos-description">Random imposters & flexible voting!</p>
                 </div>
+
+                <div class="toggle-container" id="show-imposter-count-container" style="display: none;">
+                    <label class="toggle-label">
+                        <input type="checkbox" id="show-imposter-count-toggle">
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-text">👁️ Show Imposter Count</span>
+                    </label>
+                    <p class="chaos-description">Reveal how many imposters there are</p>
+                </div>
             </div>
 
             <button class="btn btn-primary" id="start-btn">🎮 Play Game!</button>
@@ -108,6 +117,13 @@
                 </div>
             </div>
 
+            <div class="voting-section">
+                <h2>🗳️ Vote Out Imposters:</h2>
+                <p class="voting-instruction" id="voting-instruction">Vote out who you think is the imposter!</p>
+                <div id="voting-players-list" class="voting-players-list"></div>
+                <p id="votes-remaining" class="votes-remaining" style="display: none;"></p>
+            </div>
+
             <button class="btn btn-primary" id="reveal-results-btn">🎊 Reveal Results!</button>
         </div>
     </div>
@@ -131,7 +147,8 @@
             </div>
 
             <div class="action-buttons">
-                <button class="btn btn-primary" id="play-again-btn">🔄 Play Again</button>
+                <button class="btn btn-primary" id="next-round-btn">➡️ Next Round</button>
+                <button class="btn btn-secondary" id="new-game-btn">🎮 New Game</button>
                 <button class="btn btn-secondary" id="view-leaderboard-btn">🏆 Leaderboard</button>
             </div>
         </div>

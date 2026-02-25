@@ -9,8 +9,11 @@ let gameState = {
     imposterHint: '',
     hintEnabled: true,
     chaosMode: false,
+    showImposterCount: false,
     startingPlayer: null,
     revealedPlayers: new Set(),
+    votedOutPlayers: [],
+    votesRemaining: 0,
     votes: {},
     leaderboard: JSON.parse(localStorage.getItem('imposterLeaderboard')) || {}
 };
@@ -68,6 +71,17 @@ document.getElementById('hint-toggle').addEventListener('change', (e) => {
 
 document.getElementById('chaos-toggle').addEventListener('change', (e) => {
     gameState.chaosMode = e.target.checked;
+    // Show/hide imposter count toggle based on chaos mode
+    const imposterCountContainer = document.getElementById('show-imposter-count-container');
+    if (e.target.checked) {
+        imposterCountContainer.style.display = 'block';
+    } else {
+        imposterCountContainer.style.display = 'none';
+    }
+});
+
+document.getElementById('show-imposter-count-toggle').addEventListener('change', (e) => {
+    gameState.showImposterCount = e.target.checked;
 });
 
 document.getElementById('start-btn').addEventListener('click', () => {
@@ -295,7 +309,13 @@ async function setupGame() {
     // Determine number of imposters
     let numImposters = 1;
     if (gameState.chaosMode) {
-        numImposters = Math.floor(Math.random() * (gameState.players.length + 1)); // 0 to all players
+        if (gameState.showImposterCount) {
+            // If showing imposter count, must have at least 1 imposter
+            numImposters = Math.floor(Math.random() * gameState.players.length) + 1; // 1 to all players
+        } else {
+            // If hiding imposter count, can have 0 imposters
+            numImposters = Math.floor(Math.random() * (gameState.players.length + 1)); // 0 to all players
+        }
     }
     
     // Select imposters randomly
@@ -448,7 +468,83 @@ function showGameRules() {
         document.getElementById('chaos-voting-rule').style.display = 'none';
     }
     
+    // Initialize voting
+    gameState.votedOutPlayers = [];
+    
+    // Set votes remaining based on mode
+    if (gameState.chaosMode) {
+        if (gameState.showImposterCount) {
+            // In chaos mode with shown count, get X votes where X = imposter count
+            gameState.votesRemaining = gameState.imposters.length;
+            document.getElementById('votes-remaining').style.display = 'block';
+            document.getElementById('votes-remaining').textContent = `Votes Remaining: ${gameState.votesRemaining}`;
+        } else {
+            // In chaos mode with hidden count, unlimited votes
+            gameState.votesRemaining = Infinity;
+            document.getElementById('votes-remaining').style.display = 'block';
+            document.getElementById('votes-remaining').textContent = 'Vote as many times as you want!';
+        }
+    } else {
+        // Normal mode: 1 vote
+        gameState.votesRemaining = 1;
+        document.getElementById('votes-remaining').style.display = 'block';
+        document.getElementById('votes-remaining').textContent = `Votes Remaining: ${gameState.votesRemaining}`;
+    }
+    
+    renderVotingPlayers();
     showScreen('game-rules-screen');
+}
+
+function renderVotingPlayers() {
+    const container = document.getElementById('voting-players-list');
+    container.innerHTML = '';
+    
+    // Get active players (not voted out yet)
+    const activePlayers = gameState.players.filter(p => !gameState.votedOutPlayers.includes(p));
+    
+    activePlayers.forEach(player => {
+        const div = document.createElement('div');
+        div.className = 'voting-player-item';
+        div.innerHTML = `
+            <span class="voting-player-name">👤 ${player}</span>
+            <button class="vote-out-btn" onclick="voteOutPlayer('${player}')">🗳️ Vote Out</button>
+        `;
+        container.appendChild(div);
+    });
+    
+    // Also show voted out players (greyed out)
+    gameState.votedOutPlayers.forEach(player => {
+        const div = document.createElement('div');
+        div.className = 'voting-player-item voted-out';
+        div.innerHTML = `
+            <span class="voting-player-name">❌ ${player} (Voted Out)</span>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function voteOutPlayer(playerName) {
+    if (gameState.votesRemaining <= 0 && gameState.votesRemaining !== Infinity) {
+        alert('No votes remaining! Click "Reveal Results" to see the outcome.');
+        return;
+    }
+    
+    // Add to voted out players
+    gameState.votedOutPlayers.push(playerName);
+    
+    // Decrease votes remaining (unless infinite)
+    if (gameState.votesRemaining !== Infinity) {
+        gameState.votesRemaining--;
+        document.getElementById('votes-remaining').textContent = `Votes Remaining: ${gameState.votesRemaining}`;
+    }
+    
+    // Re-render the voting list
+    renderVotingPlayers();
+    
+    // Check if we should auto-reveal
+    if (gameState.votesRemaining === 0) {
+        alert('All votes used! Click "Reveal Results" to see the outcome.');
+    }
 }
 
 // Voting Screen
@@ -514,8 +610,33 @@ function selectSingleVote(player, element) {
 }
 
 document.getElementById('reveal-results-btn').addEventListener('click', () => {
+    // Auto-award points based on voting results
+    autoAwardPointsFromVoting();
     showResults();
 });
+
+function autoAwardPointsFromVoting() {
+    // Check if any imposters were voted out
+    const impostersVotedOut = gameState.votedOutPlayers.filter(p => gameState.imposters.includes(p));
+    const crewVotedOut = gameState.votedOutPlayers.filter(p => !gameState.imposters.includes(p));
+    
+    if (impostersVotedOut.length > 0) {
+        // Crew successfully voted out at least one imposter - crew wins
+        gameState.players.forEach(player => {
+            if (!gameState.imposters.includes(player)) {
+                gameState.leaderboard[player] = (gameState.leaderboard[player] || 0) + 1;
+            }
+        });
+        localStorage.setItem('imposterLeaderboard', JSON.stringify(gameState.leaderboard));
+    } else if (gameState.votedOutPlayers.length > 0) {
+        // Only crew members were voted out - imposters win
+        gameState.imposters.forEach(player => {
+            gameState.leaderboard[player] = (gameState.leaderboard[player] || 0) + 1;
+        });
+        localStorage.setItem('imposterLeaderboard', JSON.stringify(gameState.leaderboard));
+    }
+    // If no one was voted out, no points are awarded
+}
 
 // Results Screen
 function showResults() {
@@ -530,7 +651,19 @@ function showResults() {
     // Show secret word
     document.getElementById('secret-word-reveal').textContent = gameState.secretWord;
     
-    // Show winner selection
+    // Show voting results
+    if (gameState.votedOutPlayers.length > 0) {
+        const votingResults = document.createElement('div');
+        votingResults.className = 'voting-results';
+        votingResults.innerHTML = '<h3>Voted Out:</h3>' + 
+            gameState.votedOutPlayers.map(p => {
+                const isImposter = gameState.imposters.includes(p);
+                return `<div>${isImposter ? '✅' : '❌'} ${p}</div>`;
+            }).join('');
+        imposterReveal.appendChild(votingResults);
+    }
+    
+    // Show winner selection (optional manual override)
     renderWinnerSelection();
     
     showScreen('results-screen');
@@ -580,16 +713,32 @@ function awardPoints(winner) {
     alert(`Points awarded to ${winner === 'crew' ? 'Crew' : 'Imposters'}! 🏆`);
 }
 
-document.getElementById('play-again-btn').addEventListener('click', () => {
-    // Keep players and leaderboard, reset game state
+document.getElementById('next-round-btn').addEventListener('click', async () => {
+    // Keep players and leaderboard, reset game state for next round
     gameState.imposters = [];
     gameState.secretWord = '';
     gameState.imposterHint = '';
     gameState.startingPlayer = null;
     gameState.revealedPlayers.clear();
+    gameState.votedOutPlayers = [];
     gameState.votes = {};
     
-    // Return to home screen but keep players list
+    // Start a new round with same settings
+    await setupGame();
+    showScreen('word-reveal-screen');
+});
+
+document.getElementById('new-game-btn').addEventListener('click', () => {
+    // Reset everything and return to home screen
+    gameState.imposters = [];
+    gameState.secretWord = '';
+    gameState.imposterHint = '';
+    gameState.startingPlayer = null;
+    gameState.revealedPlayers.clear();
+    gameState.votedOutPlayers = [];
+    gameState.votes = {};
+    
+    // Return to home screen
     showScreen('home-screen');
 });
 
