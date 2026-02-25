@@ -663,54 +663,7 @@ function showResults() {
         imposterReveal.appendChild(votingResults);
     }
     
-    // Show winner selection (optional manual override)
-    renderWinnerSelection();
-    
     showScreen('results-screen');
-}
-
-function renderWinnerSelection() {
-    const container = document.getElementById('winner-selection-list');
-    container.innerHTML = '';
-    
-    const crewBtn = document.createElement('button');
-    crewBtn.className = 'winner-btn';
-    crewBtn.textContent = '👥 Crew Wins!';
-    crewBtn.addEventListener('click', () => awardPoints('crew'));
-    container.appendChild(crewBtn);
-    
-    if (gameState.imposters.length > 0) {
-        const imposterBtn = document.createElement('button');
-        imposterBtn.className = 'winner-btn';
-        imposterBtn.textContent = '🕵️ Imposter Wins!';
-        imposterBtn.addEventListener('click', () => awardPoints('imposters'));
-        container.appendChild(imposterBtn);
-    }
-}
-
-function awardPoints(winner) {
-    // Disable all winner buttons to prevent multiple clicks
-    const winnerButtons = document.querySelectorAll('.winner-btn');
-    winnerButtons.forEach(btn => {
-        btn.disabled = true;
-        btn.style.opacity = '0.5';
-        btn.style.cursor = 'not-allowed';
-    });
-    
-    if (winner === 'crew') {
-        gameState.players.forEach(player => {
-            if (!gameState.imposters.includes(player)) {
-                gameState.leaderboard[player] = (gameState.leaderboard[player] || 0) + 1;
-            }
-        });
-    } else {
-        gameState.imposters.forEach(player => {
-            gameState.leaderboard[player] = (gameState.leaderboard[player] || 0) + 1;
-        });
-    }
-    
-    localStorage.setItem('imposterLeaderboard', JSON.stringify(gameState.leaderboard));
-    alert(`Points awarded to ${winner === 'crew' ? 'Crew' : 'Imposters'}! 🏆`);
 }
 
 document.getElementById('next-round-btn').addEventListener('click', async () => {
