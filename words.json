@@ -52,6 +52,12 @@
       "Scientist", "Programmer", "Designer", "Writer", "Journalist", "Photographer", "Musician", "Singer", "Actor", "Dancer",
       "Firefighter", "Police", "Soldier", "Farmer", "Fisherman", "Carpenter", "Plumber", "Electrician", "Mechanic", "Barber",
       "Accountant", "Banker", "Manager", "Secretary", "Cashier", "Cleaner", "Guard", "Librarian", "Dentist", "Veterinarian"
+    ],
+    "Relationships & Love": [
+      "Ex-Boyfriend", "Girlfriend", "Boyfriend", "Wife", "Husband", "Partner", "Crush", "Date", "Kiss", "Hug",
+      "Wedding", "Marriage", "Engagement", "Anniversary", "Valentine", "Love Letter", "Proposal", "Ring", "Romance", "Flower",
+      "Ex-Girlfriend", "Fiance", "Soulmate", "Sweetheart", "Lover", "Admirer", "Flirting", "Dating", "Breakup", "Reunion",
+      "Heart", "Cupid", "First Love", "Serenade", "Honeymoon", "Couple", "Together", "Forever", "Commitment", "Affection"
     ]
   }
 }

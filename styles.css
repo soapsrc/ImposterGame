@@ -3,7 +3,7 @@
 
 :root {
     --primary-pink: #FFB3D9;
-    --secondary-purple: #C9A0DC;
+    --secondary-purple: #a990d8;
     --accent-blue: #A8D8FF;
     --accent-yellow: #FFF4A3;
     --accent-green: #B8E994;
@@ -316,6 +316,62 @@ h2 {
     font-size: 11px;
 }
 
+/* Custom Words Section */
+.custom-word-description {
+    font-size: 10px;
+    color: var(--dark);
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.custom-word-input-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.custom-words-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.custom-word-item {
+    background: var(--accent-green);
+    border: 3px solid var(--border);
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.custom-word-text {
+    font-size: 10px;
+    color: var(--dark);
+}
+
+.remove-word-btn {
+    background: #FF6B6B;
+    color: var(--white);
+    border: 2px solid var(--border);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 8px;
+    font-family: 'Press Start 2P', cursive;
+    transition: transform 0.2s;
+}
+
+.remove-word-btn:hover {
+    transform: scale(1.1);
+}
+
+.remove-word-btn:active {
+    transform: scale(0.95);
+}
+
 /* Reveal Players List */
 .reveal-players-list {
     display: grid;
@@ -392,6 +448,20 @@ h2 {
     color: var(--secondary-purple);
     font-weight: bold;
     text-shadow: 1px 1px 0px var(--shadow);
+}
+
+.warning-box {
+    background: #FFE5E5;
+    border: 3px solid #FF6B6B;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-size: 10px;
+    line-height: 1.8;
+}
+
+.warning-box strong {
+    color: #FF6B6B;
 }
 
 /* Voting List */

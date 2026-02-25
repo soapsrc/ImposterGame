@@ -11,14 +11,6 @@ CORS(app)
 
 COHERE_API_KEY = os.getenv('COHERE_API_KEY')
 
-@app.route('/')
-def index():
-    return send_from_directory('.', 'index.html')
-
-@app.route('/<path:path>')
-def serve_static(path):
-    return send_from_directory('.', path)
-
 @app.route('/api/generate-hint', methods=['POST'])
 def generate_hint():
     try:
@@ -49,6 +41,7 @@ Examples:
 - "Seal" → "Ocean", "Marine", "Swim"
 - "Teacher" → "Guide", "Course", "Learning"
 - "Apple" → "Fruit", "Sweet", "Orchard"
+- "League of Legends" → "Game", "Online", "Battle"
 
 IMPORTANT: The hint MUST be loosely related to the same type/category. Do NOT give unrelated words, but also do not give overly specific words that reveal the secret word.
 
@@ -65,6 +58,14 @@ Now give me ONLY ONE word for "{secret_word}":''',
         
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+@app.route('/')
+def index():
+    return send_from_directory('.', 'index.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory('.', path)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)

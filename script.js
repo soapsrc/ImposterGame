@@ -2,6 +2,7 @@
 let gameState = {
     categories: {},
     selectedCategories: [],
+    customWords: [],
     players: [],
     imposters: [],
     secretWord: '',
@@ -70,12 +71,58 @@ document.getElementById('chaos-toggle').addEventListener('change', (e) => {
 });
 
 document.getElementById('start-btn').addEventListener('click', () => {
-    if (gameState.selectedCategories.length === 0) {
-        alert('Please select at least one category! 🎯');
+    if (gameState.selectedCategories.length === 0 && gameState.customWords.length === 0) {
+        alert('Please select at least one category or add custom words! 🎯');
         return;
     }
     showScreen('player-setup-screen');
 });
+
+// Custom Words
+document.getElementById('custom-word-input').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        document.getElementById('add-custom-word-btn').click();
+    }
+});
+
+document.getElementById('add-custom-word-btn').addEventListener('click', () => {
+    const input = document.getElementById('custom-word-input');
+    const word = input.value.trim();
+    
+    if (!word) {
+        alert('Please enter a word! ✏️');
+        return;
+    }
+    
+    if (gameState.customWords.includes(word)) {
+        alert('This word is already added! 🔄');
+        return;
+    }
+    
+    gameState.customWords.push(word);
+    input.value = '';
+    renderCustomWordsList();
+});
+
+function renderCustomWordsList() {
+    const container = document.getElementById('custom-words-list');
+    container.innerHTML = '';
+    
+    gameState.customWords.forEach(word => {
+        const div = document.createElement('div');
+        div.className = 'custom-word-item';
+        div.innerHTML = `
+            <span class="custom-word-text">✏️ ${word}</span>
+            <button class="remove-word-btn" onclick="removeCustomWord('${word}')">❌</button>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function removeCustomWord(word) {
+    gameState.customWords = gameState.customWords.filter(w => w !== word);
+    renderCustomWordsList();
+}
 
 // Player Setup
 document.getElementById('player-name-input').addEventListener('keypress', (e) => {
@@ -177,6 +224,7 @@ async function generateAIHint(secretWord) {
 function generateFallbackHint(word) {
     console.log('Using fallback hint for:', word);
     console.log('Selected categories:', gameState.selectedCategories);
+    console.log('Custom words:', gameState.customWords);
     
     // Generate contextually relevant hints based on common categories
     const categoryHints = {
@@ -189,7 +237,8 @@ function generateFallbackHint(word) {
         'Emotions': ['Feeling', 'Emotion', 'Mood', 'State', 'Sense'],
         'Weather & Nature': ['Natural', 'Outside', 'Environment', 'Element', 'Earth'],
         'Colors': ['Shade', 'Hue', 'Tone', 'Color', 'Bright'],
-        'Professions': ['Career', 'Occupation', 'Professional', 'Work', 'Job']
+        'Professions': ['Career', 'Occupation', 'Professional', 'Work', 'Job'],
+        'Relationships & Love': ['Romantic', 'Personal', 'Connection', 'Together', 'Heart']
     };
     
     // Try to find which category this word belongs to
@@ -204,6 +253,12 @@ function generateFallbackHint(word) {
                 return hint;
             }
         }
+    }
+    
+    // Check if it's a custom word
+    if (gameState.customWords.includes(word)) {
+        console.log('Word is a custom word, using "Custom word" hint');
+        return 'Custom word';
     }
     
     // If not found in any selected category, use first selected category
@@ -228,6 +283,8 @@ async function setupGame() {
     gameState.selectedCategories.forEach(category => {
         availableWords.push(...gameState.categories[category]);
     });
+    // Add custom words to the pool
+    availableWords.push(...gameState.customWords);
     gameState.secretWord = availableWords[Math.floor(Math.random() * availableWords.length)];
     
     // Generate AI hint for imposters if hint is enabled
